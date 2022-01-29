@@ -22,7 +22,9 @@ describe('AppComponent', () => {
     },
   ];
   const configStub = {
-    getData: jasmine.createSpy('configService').and.returnValues(jsonData),
+    getData: jasmine
+      .createSpy('ConfigService::getData')
+      .and.returnValues(of(jsonData)),
   };
   beforeAll(() => {
     TestBed.initTestEnvironment(
