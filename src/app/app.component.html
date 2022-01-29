@@ -1,4 +1,45 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<div>
+  <h3>GM Web Forms</h3>
+  <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()" *ngIf="dynamicForm">
+    <ng-container *ngFor="let controls of jsonData">
+      <!--text field-->
+      <ng-container
+        *ngIf="controls.type == 'text' && controls.hidden == 'false'"
+      >
+        {{ controls.label }}
+        <ng-container *ngIf="controls.mandatory">
+          <!-- display error -->
+          <span
+            *ngIf="dynamicForm.controls[controls.field].errors && submitted"
+          >
+            &nbsp;&nbsp;required
+          </span>
+        </ng-container>
+        <input
+          [type]="controls.type"
+          [formControlName]="controls.field"
+          placeholder="Please enter {{ controls.label }}"
+        />
+        <br />
+      </ng-container>
+      <br />
+
+      <!--checkbox field-->
+      <ng-container
+        *ngIf="controls.type == 'check' && controls.hidden == 'false'"
+      >
+        <input
+          type="checkbox"
+          [formControlName]="controls.field"
+        />&nbsp;&nbsp;{{ controls.label }}
+        <!-- display error -->
+        <span *ngIf="dynamicForm.controls[controls.field].errors && submitted">
+          &nbsp;&nbsp;required
+        </span>
+        <br />
+      </ng-container>
+    </ng-container>
+    <br />
+    <input type="submit" />
+  </form>
+</div>
