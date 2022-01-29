@@ -1,6 +1,6 @@
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, fakeAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfigService } from './config.service';
 // import { HttpClientModule, HttpClient, HttpHandler } from '@angular/common/http';
@@ -10,9 +10,18 @@ import {
   platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs/observable/of';
 
 describe('AppComponent', () => {
+  let component: AppComponent;
   const jsonData = [
+    {
+      field: 'name',
+      label: 'Name',
+      type: 'text',
+      hidden: 'false',
+      mandatory: true,
+    },
     {
       field: 'name',
       label: 'Name',
@@ -46,12 +55,9 @@ describe('AppComponent', () => {
       declarations: [AppComponent],
     }).compileComponents();
   }));
-  it('should render app', async(() => {
+  it('should render app', fakeAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain(
-      'Welcome to app!!'
-    );
+    component = fixture.componentInstance;
+    expect(component).toBeTruthy();
   }));
 });
