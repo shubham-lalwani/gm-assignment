@@ -36,7 +36,7 @@ describe('AppComponent', () => {
       providers: [
         {
           provide: ConfigService,
-          usevalue: configStub,
+          useValue: configStub,
         },
         HttpClientTestingModule,
       ],
